@@ -1,0 +1,50 @@
+# i3blocks configuration file
+#
+# The i3blocks man page describes the usage of the binary,
+# and its website describes the configuration:
+#
+#     https://vivien.github.io/i3blocks
+
+
+# Global properties
+separator=true
+separator_block_width=15
+
+[user]
+color=#FFB6C1
+command=echo " $USER"
+interval=once
+
+[hostname]
+color=#DAA520
+command=echo "󰟀 $HOSTNAME"
+interval=once
+
+[CPU]
+color=#00B4EB
+full_text= CPU:  0.00% @ +00.0°C 
+command=$HOME/.config/i3blocks/cpu_info.sh
+interval=repeat
+
+[mem]
+color=#D70040
+command=free -h | awk '/Mem.:/ { printf("   %5s/%s \n", $3, $2) }'
+interval=1
+
+[wifi]
+color=#00A36C
+command=nmcli -t -f active,ssid,signal dev wifi | grep sim | awk -F':' '{ printf( "   SSID: " $2 ", Signal: " $3 "%" "\n" ) }'
+interval=2
+
+[disk]
+color=#5F9EA0
+command=df -h / | awk '/\//{ printf(" 󰋊 %4s/%s \n", $4, $2) }'
+interval=2
+
+[battery]
+command=$HOME/.config/i3blocks/battery.sh
+interval=3
+
+[time]
+command=date '+%Y-%m-%d %H:%M:%S'
+interval=1
